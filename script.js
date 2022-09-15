@@ -16,6 +16,7 @@ fetch("./texts.json")
   .then((res) => res.json())
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
+    console.log(questionText)
     question.innerHTML = questionText;
   });
 
@@ -45,6 +46,7 @@ const typeController = (e) => {
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
   } else {
+    errorCount ++;
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
   }
 
@@ -115,10 +117,9 @@ const start = () => {
       document.addEventListener("keydown", typeController);
       countdownOverlay.style.display = "none";
       display.classList.remove("inactive");
-
-      clearInterval(startCountdown);
+       clearInterval(startCountdown);
       startTime = new Date().getTime();
-    }
+      }
     count--;
   }, 1000);
 };
@@ -133,7 +134,10 @@ displayHistory();
 setInterval(() => {
   const currentTime = new Date().getTime();
   const timeSpent = (currentTime - startTime) / 1000;
+  const timeSpent2 = timeSpent.toFixed(0)
+ 
 
-
-  document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;
+  document.getElementById("show-time").innerHTML = `${startTime ? timeSpent2 : 0} seconds`;
 }, 1000);
+
+ 
